@@ -123,7 +123,9 @@ class GeoPackageFrame(GeoDataFrame, DataFrame):
         reserved7 = (flagsInt >> 7) & 1
         reserved6 = (flagsInt >> 6) & 1
         if reserved6 != 0 or reserved7 != 0:
-            raise ValueError('Unexpected GeoPackage Geometry flags. Flag bit 7 and 6 should both be 0')
+            raise ValueError(
+        'Unexpected GeoPackage Geometry flags. Flag bit 7 and 6 should both be 0'
+        )
 
         # Get the binary type from bit 5, 0 for standard and 1 for extended
         binaryType = (flagsInt >> 5) & 1
@@ -138,7 +140,9 @@ class GeoPackageFrame(GeoDataFrame, DataFrame):
         # bits 3, 2, and 1)
         envelopeIndicator = (flagsInt >> 1) & 7
         if envelopeIndicator > 4:
-            raise ValueError('Unexpected GeoPackage Geometry flags. Envelope contents indicator must be between 0 and 4')
+            raise ValueError(
+        'Unexpected GeoPackage Geometry flags. Envelope contents indicator must be between 0 and 4'
+        )
         output.update(envelopeIndicator=envelopeIndicator)
 
         # Get the byte order from bit 0, 0 for Big Endian and 1 for Little Endian
@@ -149,7 +153,7 @@ class GeoPackageFrame(GeoDataFrame, DataFrame):
 
     def _read_envelope(self, buffer, flags_dict):
         dt = np.dtype('d')
-        readMethod = dt.newbyteorder('<') if flags_dict['byteOrder'] else dt.newbyteorder('<')
+        readMethod = dt.newbyteorder('<') if flags_dict['byteOrder'] else dt.newbyteorder('>')
 
         envelopeByteOffset = 8
         reads = 0
