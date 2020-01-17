@@ -77,10 +77,10 @@ class GeoPackageFrame(GeoDataFrame, DataFrame):
         if drop:
             frame.drop(col, 1, inplace=True)
 
-        if isinstance(level, GeoSeries) and level.crs != crs:
+        if isinstance(level, GeoSeries) and level.crs != self.crs:
             # Avoids caching issues/crs sharing issues
             level = level.copy()
-            level.crs = crs
+            level.crs = self.crs
 
         # Check that we are using a listlike of geometries
         if not all(isinstance(item, BaseGeometry) or pd.isnull(item) for item in level):
