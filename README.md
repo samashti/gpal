@@ -1,6 +1,6 @@
-# GeoPackagePy
+# GPAL
 
-Geopackage read/write with sql queries (uses geopandas and pandas)
+GPAL (Geopackage Python Access Library) - read/write geopackage with sql queries (built on geopandas and pandas)
 
 ## Requirements
 
